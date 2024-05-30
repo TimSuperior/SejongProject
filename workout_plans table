@@ -1,0 +1,9 @@
+CREATE TABLE workout_plans (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    exercise VARCHAR(50) NOT NULL,
+    sets INT NOT NULL,
+    reps INT NOT NULL,
+    rest INT NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users(id)
+);
