@@ -1,7 +1,8 @@
+<?php include('session.php'); ?>
 <?php
 $servername = "localhost";
 $username = "root";
-$password = "";
+$password = "Tim8";
 $dbname = "fithub";
 
 $conn = new mysqli($servername, $username, $password, $dbname);

@@ -30,3 +30,14 @@ if ($conn->query($sql) === TRUE) {
 
 $conn->close();
 ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration Result - FitHub</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <button onclick="window.location.href='index.html';">Return to Main Page</button>
+</body>
+</html>
