@@ -4,9 +4,9 @@ body {
     background-color: #f2f2f2;
     margin: 0;
     padding: 0;
-    display: flex;
+    /*display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: center;*/
     height: 100vh;
 }
 
@@ -14,6 +14,42 @@ h2 {
     text-align: center;
     color: #333;
     margin-bottom: 20px;
+    display: block;
+}
+
+.form0{
+    margin-top: 2%;
+    display: flex;
+    justify-content: center;
+}
+
+/*
+a{
+    color:rgb(146, 211, 255);
+}
+a:link {
+    text-decoration: none;
+  }
+a:hover{
+    color: rgb(14, 155, 255);
+}
+a:active {
+    color: blue;
+  }
+*/
+/*
+.form1{
+    float: right;
+}
+
+.form2{
+    float: left;
+}
+*/
+
+.col{
+    float: left;
+    width: 70%;
 }
 
 /* Form styling */
@@ -22,8 +58,8 @@ form {
     padding: 20px;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 300px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    width: 70%;
 }
 
 form:hover {
