@@ -20,6 +20,8 @@ $pass = $_POST['password'];
 $sql = "SELECT * FROM users WHERE username = '$user'";
 $result = $conn->query($sql);
 
+
+
 if ($result->num_rows > 0) {
     $row = $result->fetch_assoc();
     if (password_verify($pass, $row['password'])) {
@@ -28,6 +30,13 @@ if ($result->num_rows > 0) {
         $_SESSION['username'] = $row['username'];
         echo "<h2>Login successful! Welcome, " . $row['username'] . ".</h2>";
         echo '<button onclick="window.location.href=\'index.html\';">Return to Main Page</button>';
+
+        $row11 = $row['id'];
+        $sql1 = "SELECT * FROM assessments WHERE user_id = $row11";
+        $result1 = $conn->query($sql1);
+        $row1 = $result1->fetch_assoc();
+        $_SESSION['fitness_lvl'] = $row1['fitness_level'];
+
     } else {
         echo "<h2>Invalid password. Please try again.</h2>";
         echo '<button onclick="window.location.href=\'login.html\';">Return to Login Page</button>';

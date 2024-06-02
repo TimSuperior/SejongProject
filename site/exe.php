@@ -1,3 +1,8 @@
+<?php 
+session_start();
+
+?>
+
 <!DOCTYPE html>
 <html class="wow-animation" lang="en">
   <head>
@@ -45,7 +50,7 @@
                     <!-- RD Navbar Nav-->
                     <ul class="rd-navbar-nav">
                       
-                      <li><a href="exe.html"><span>Home</span></a></li>
+                      <li><a href="index.html"><span>Home</span></a></li>
                       <li class="active"><a href="exe.html"><span>Exercise</span></a></li>
                       <li><a href="exe.html"><span>Myprogress</span></a></li>
                       <li><a href="exe.html"><span>Nutrition</span></a></li>
@@ -82,20 +87,67 @@
           <div class="row justify-content-sm-center">
             <div class="col-sm-10 col-md-5">
               <!-- Member block type 5-->
-              <div class="member-block-type-5 inset-lg-right-20"><video class="img-fluid mx-auto d-block"width="450" height="450" controls>
+              <div id="dis2" class="member-block-type-5 inset-lg-right-20">
+              <?php 
+if($_SESSION['fitness_lvl'] == 'beginner')
+{
+  echo <<<html
+  <video class="img-fluid mx-auto d-block"width="450" height="450" controls>
                 <source src="images/vid1.mp4" type="video/mp4">
+
+              Your browser does not support the video tag.
+              </video>
+html;
+
+}
+elseif($_SESSION['fitness_lvl'] == 'intermediate')
+{
+  echo <<<html
+  <video class="img-fluid mx-auto d-block"width="450" height="450" controls>
                 <source src="images/vid2.mp4" type="video/ogg">
+              Your browser does not support the video tag.
+              </video>
+html;
+
+}
+else
+{
+  echo <<<html
+  <video class="img-fluid mx-auto d-block"width="450" height="450" controls>
                 <source src="images/vid3.mp4" type="video/ogg">
               Your browser does not support the video tag.
               </video>
+html;
+
+}
+?>
+
+              
 
               </div>
             </div>
             <div class="col-sm-10 col-md-7 text-md-left">
               <div>
-                <h1 class="text-darker" id="dis1" style="display: none;">Beginner level</h1>
-                <h1 class="text-darker" id="dis2" style="display: none;">Intermediate level</h1>
-                <h1 class="text-darker" id="dis1" style="display: none;">Advanced level</h1>
+              <?php 
+if($_SESSION['fitness_lvl'] == 'beginner')
+{
+  echo '<h1 class="text-darker" id="dis1">Beginner level</h1>';
+
+}
+elseif($_SESSION['fitness_lvl'] == 'intermediate')
+{
+  echo '<h1 class="text-darker" id="dis2">Intermediate level</h1>';
+
+}
+else
+{
+  echo '<h1 class="text-darker" id="dis3">Advanced level</h1>';
+
+}
+?>
+                
+                
+                
               </div>
               <p class="text-muted offset-top-4">Fitness Coach</p>
               <hr class="divider bg-red hr-md-left-0">
@@ -131,30 +183,8 @@
                     </div>
                   </div>
                 </div>
-                <div class="offset-top-50">
-                  <!-- Linear progress bar-->
-                  <div class="progress-linear" data-to="87">
-                    <div class="progress-linear-header clearfix">
-                      <div><span class="progress-linear-title p text-ubold pull-left text-uppercase">Yoga</span></div>
-                      <div><span class="big text-ubold pull-right progress-linear-counter">87</span></div>
-                    </div>
-                    <div class="progress-linear-body">
-                      <div class="progress-linear-bar bg-warning"></div>
-                    </div>
-                  </div>
-                </div>
-                <div class="offset-top-50">
-                  <!-- Linear progress bar-->
-                  <div class="progress-linear" data-to="65">
-                    <div class="progress-linear-header clearfix">
-                      <div><span class="progress-linear-title p text-ubold pull-left text-uppercase">Bodybuilding</span></div>
-                      <div><span class="big text-ubold pull-right progress-linear-counter">65</span></div>
-                    </div>
-                    <div class="progress-linear-body">
-                      <div class="progress-linear-bar bg-danger"></div>
-                    </div>
-                  </div>
-                </div>
+
+
               </div>
             </div>
           </div>
@@ -210,3 +240,4 @@
     <script src="js/script.js"></script>
   </body>
 </html>
+

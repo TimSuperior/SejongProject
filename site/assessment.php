@@ -13,6 +13,7 @@ if ($conn->connect_error) {
 }
 
 $fitness_level = $_POST['fitness_level'];
+$_SESSION['$fitness_lvl'] = $_POST['fitness_level'];
 $user = $_SESSION['username'];
 // Collect additional assessment data
 
@@ -27,6 +28,6 @@ if ($conn->query($sql) === TRUE) {
     echo "Error: " . $sql . "<br>" . $conn->error;
     echo '<button onclick="window.location.href=\'index.html\';">Error!!! Return to Main Page</button>';
 }
-session_destroy();
+
 $conn->close();
 ?>
