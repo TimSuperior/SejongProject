@@ -23,7 +23,9 @@ VALUES ((SELECT id FROM users WHERE username = '$user'), '$fitness_level')";
 if ($conn->query($sql) === TRUE) {
     
     echo "Assessment submitted!";
-    echo '<button onclick="window.location.href=\'index.html\';">Return to Main Page</button>';
+    header('Location: index.html');
+exit;
+    //echo '<button onclick="window.location.href=\'index.html\';">Return to Main Page</button>';
 } else {
     echo "Error: " . $sql . "<br>" . $conn->error;
     echo '<button onclick="window.location.href=\'index.html\';">Error!!! Return to Main Page</button>';

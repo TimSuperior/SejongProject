@@ -149,40 +149,32 @@ else
                 
                 
               </div>
-              <p class="text-muted offset-top-4">Fitness Coach</p>
+              <p class="text-muted offset-top-4">Watch and repeat!</p>
               <hr class="divider bg-red hr-md-left-0">
-              <p class="offset-top-50 text-left">Emily Perkins is the leading fitness and athletics trainer at Intense Gym. She received a Bachelor’s in Physical Health and Education, and a Master’s in Exercise Science in Los Angeles University.</p>
+              <p class="offset-top-50 text-left">Warm Up and Cool Down: Always start with a warm-up and end with a cool-down to prevent injuries and improve performance.
+
+</p>
               <div class="offset-top-30 text-center">
                 <p>
-                  <q class="font-italic h3 text-regular">I'm glad to help all clients of Intense Gym acquire the proper body shape through fitness.</q>
+                  <q class="font-italic h3 text-regular">Consult a doctor before starting any new exercise regimen, especially if you have pre-existing health conditions.</q>
                 </p>
               </div>
               <div class="offset-top-30">
-                <p class="text-left">Ms. Perkins joined our team in 2010, after winning the local athletics competition. She started her career in sports in 2005, and in a few years she became a well-known trainer in the world of fitness. Her professionalism allows her to find a personalized approach to every client of Intense Gym.</p>
+                <p class="text-left">Avoid Overtraining: Ensure adequate rest and recovery to prevent burnout and injuries.</p>
               </div>
               <div class="offset-top-50">
-                <!-- Linear progress bar-->
-                <div class="progress-linear" data-to="70">
-                  <div class="progress-linear-header clearfix">
-                    <div><span class="progress-linear-title p text-ubold pull-left text-uppercase">Fitness</span></div>
-                    <div><span class="big text-ubold pull-right progress-linear-counter">70</span></div>
-                  </div>
-                  <div class="progress-linear-body">
-                    <div class="progress-linear-bar bg-success"></div>
-                  </div>
-                </div>
-                <div class="offset-top-50">
-                  <!-- Linear progress bar-->
-                  <div class="progress-linear" data-to="94">
-                    <div class="progress-linear-header clearfix">
-                      <div><span class="progress-linear-title p text-ubold pull-left text-uppercase">CrossFIT</span></div>
-                      <div><span class="big text-ubold pull-right progress-linear-counter">94</span></div>
-                    </div>
-                    <div class="progress-linear-body">
-                      <div class="progress-linear-bar bg-info"></div>
-                    </div>
-                  </div>
-                </div>
+              <div class="form-container">
+        <h2>Submit Your Weight</h2>
+        <form action="submit_weight.php" method="POST">
+            <div class="form-group">
+                <label for="weight">Weight (kg):</label>
+                <input type="text" id="weight" name="weight" required>
+            </div>
+            <div class="form-group">
+                <button type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
 
 
               </div>
