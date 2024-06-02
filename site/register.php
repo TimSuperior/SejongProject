@@ -1,4 +1,5 @@
 <?php
+session_start();
 $servername = "localhost";
 $username = "root";
 $password = "Tim8";
@@ -35,9 +36,9 @@ $conn->close();
 <head>
     <meta charset="UTF-8">
     <title>Registration Result - FitHub</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="css/reg_styles.css">
 </head>
 <body>
-    <button onclick="window.location.href='index.html';">Return to Main Page</button>
+    <button onclick="window.location.href='assessment.html';">Go to assessment page</button>
 </body>
 </html>
