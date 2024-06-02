@@ -20,6 +20,8 @@ $height = $_POST['height'];
 $goals = $_POST['goals'];
 $conditions = $_POST['conditions'];
 
+//$_SESSION['user_id'] = $row['id'];
+$_SESSION['username'] = $_POST['username'];
 $sql = "INSERT INTO users (username, password, age, gender, weight, height, goals, conditions)
 VALUES ('$user', '$pass', '$age', '$gender', '$weight', '$height', '$goals', '$conditions')";
 

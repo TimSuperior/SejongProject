@@ -1,5 +1,6 @@
-<?php include('session.php'); ?>
+
 <?php
+session_start();
 $servername = "localhost";
 $username = "root";
 $password = "Tim8";
@@ -19,11 +20,12 @@ $sql = "INSERT INTO assessments (user_id, fitness_level)
 VALUES ((SELECT id FROM users WHERE username = '$user'), '$fitness_level')";
 
 if ($conn->query($sql) === TRUE) {
+    
     echo "Assessment submitted!";
     echo '<button onclick="window.location.href=\'index.html\';">Return to Main Page</button>';
 } else {
     echo "Error: " . $sql . "<br>" . $conn->error;
-    echo '<button onclick="window.location.href=\'index.html\';">Return to Main Page</button>';
+    echo '<button onclick="window.location.href=\'index.html\';">Error!!! Return to Main Page</button>';
 }
 session_destroy();
 $conn->close();
