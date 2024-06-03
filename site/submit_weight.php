@@ -29,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 if ($conn->query($sql) === TRUE) {
     
     echo "Weight is submitted!";
-    header('Location: index.html');
+    header('Location: index1.html');
 exit;
     //echo '<button onclick="window.location.href=\'index.html\';">Return to Main Page</button>';
 } else {

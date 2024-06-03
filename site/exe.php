@@ -40,19 +40,19 @@ session_start();
                 <!-- RD Navbar Top Panel Toggle-->
                 <button class="rd-navbar-top-panel-toggle" data-rd-navbar-toggle=".rd-navbar, .rd-navbar-top-panel"><span></span></button>
                 <!--Navbar Brand-->
-                <div class="rd-navbar-brand"><a href="index.html"><img width='230' height='50' src='images/logo.png' alt=''/></a></div>
+                <div class="rd-navbar-brand"><a href="index1.html"><img width='230' height='50' src='images/logo.png' alt=''/></a></div>
               </div>
               <div class="rd-navbar-menu-wrap">
                 <div class="rd-navbar-nav-wrap">
                   <div class="rd-navbar-mobile-scroll">
                     <!--Navbar Brand Mobile-->
-                    <div class="rd-navbar-mobile-brand"><a href="index.html"><img width='300' height='50' src='images/logo.png' alt=''/></a></div>
+                    <div class="rd-navbar-mobile-brand"><a href="index1.html"><img width='300' height='50' src='images/logo.png' alt=''/></a></div>
                     <!-- RD Navbar Nav-->
                     <ul class="rd-navbar-nav">
                       
-                      <li><a href="index.html"><span>Home</span></a></li>
-                      <li class="active"><a href="exe.html"><span>Exercise</span></a></li>
-                      <li><a href="exe.html"><span>Myprogress</span></a></li>
+                      <li><a href="index1.html"><span>Home</span></a></li>
+                      <li class="active"><a href="http://localhost/Uni/WebProgProject/Sardorlol/site/exe.php"><span>Exercise</span></a></li>
+                      <li><a href="exesample.html"><span>Myprogress</span></a></li>
                       <li><a href="exe.html"><span>Nutrition</span></a></li>
                       <li><a href="login.html"><span>LogOut</span></a></li>
                       
@@ -71,7 +71,7 @@ session_start();
                 <div class="container section-top-98 section-bottom-34 section-lg-bottom-66 section-lg-98 section-xl-top-110 section-xl-bottom-41">
                   <h2 class="d-none d-lg-block offset-top-30"><span class="big">Exercises</span></h2>
                   <ul class="list-inline list-inline-dashed">
-                    <li class="list-inline-item"><a href="index.html">Home</a></li>
+                    <li class="list-inline-item"><a href="index1.html">Home</a></li>
                     <li class="list-inline-item">Exercise
                     </li>
                   </ul>
@@ -213,7 +213,7 @@ else
                 </div>
                 <div class="col-sm-10 col-md-3 offset-top-66 order-md-1 offset-md-top-0 col-md-6 col-xl-3 order-xl-1">
                   <!-- Footer brand-->
-                  <div class="footer-brand"><a href="index.html"><img width='200' height='50' src='images/logo.png' alt=''/></a></div>
+                  <div class="footer-brand"><a href="index1.html"><img width='200' height='50' src='images/logo.png' alt=''/></a></div>
 
                   <p class="text-darker offset-top-20">FitHub &copy; <span id="copyright-year"></span> .
                     Design&nbsp;by&nbsp;TimurAsraev(19012851)</a>

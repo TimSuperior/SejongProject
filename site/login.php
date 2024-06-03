@@ -29,7 +29,7 @@ if ($result->num_rows > 0) {
         $_SESSION['user_id'] = $row['id'];
         $_SESSION['username'] = $row['username'];
         echo "<h2>Login successful! Welcome, " . $row['username'] . ".</h2>";
-        echo '<button onclick="window.location.href=\'index.html\';">Return to Main Page</button>';
+        echo '<button onclick="window.location.href=\'index1.html\';">Return to Main Page</button>';
 
         $row11 = $row['id'];
         $sql1 = "SELECT * FROM assessments WHERE user_id = $row11";
@@ -39,7 +39,7 @@ if ($result->num_rows > 0) {
 
     } else {
         echo "<h2>Invalid password. Please try again.</h2>";
-        echo '<button onclick="window.location.href=\'login.html\';">Return to Login Page</button>';
+        echo '<button onclick="window.location.href=\'login1.html\';">Return to Login Page</button>';
     }
 } else {
     echo "<h2>Invalid username. Please try again.</h2>";
