@@ -4,21 +4,41 @@
     <meta charset="UTF-8">
     <title>Fitness Assessment - FitHub</title>
     <link rel="stylesheet" href="css/reg_styles.css">
+    <style>
+        .center-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        form select, form button {
+            margin-top: 10px;
+        }
+    </style>
     <script src="assessment.js" defer></script>
 </head>
 <body>
-    <h2>Fitness Assessment</h2>
-    <form action="assessment.php" method="post">
-        <label for="fitness_level">Fitness Level:</label>
-        <select id="fitness_level" name="fitness_level">
-            <option value="">Select your fitness level</option>
-            <option value="beginner">Beginner</option>
-            <option value="intermediate">Intermediate</option>
-            <option value="advanced">Advanced</option>
-        </select><br>
-        <div id="assessment_feedback"></div>
-        <!-- Additional questions -->
-        <button type="submit">Submit Assessment</button>
-    </form>
+    <div class="center-container">
+        <h2>Fitness Assessment</h2>
+        <form action="assessment.php" method="post">
+            <label for="fitness_level">Fitness Level:</label>
+            <select id="fitness_level" name="fitness_level">
+                <option value="">Select your fitness level</option>
+                <option value="beginner">Beginner</option>
+                <option value="intermediate">Intermediate</option>
+                <option value="advanced">Advanced</option>
+            </select><br>
+            <div id="assessment_feedback"></div>
+            <!-- Additional questions -->
+            <button type="submit">Submit Assessment</button>
+        </form>
+    </div>
 </body>
 </html>

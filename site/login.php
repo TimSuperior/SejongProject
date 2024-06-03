@@ -20,16 +20,16 @@ $pass = $_POST['password'];
 $sql = "SELECT * FROM users WHERE username = '$user'";
 $result = $conn->query($sql);
 
-
-
 if ($result->num_rows > 0) {
     $row = $result->fetch_assoc();
     if (password_verify($pass, $row['password'])) {
         // Store user information in session
         $_SESSION['user_id'] = $row['id'];
         $_SESSION['username'] = $row['username'];
-        echo "<h2>Login successful! Welcome, " . $row['username'] . ".</h2>";
-        echo '<button onclick="window.location.href=\'index1.html\';">Return to Main Page</button>';
+        echo "<div style=\"display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh;\">
+                <h2>Login successful! Welcome, " . $row['username'] . ".</h2>
+                <button style=\"background-color: rgb(43, 224, 15); margin-top: 10px;\" onclick=\"window.location.href='index1.html';\">Return to Main Page</button>
+              </div>";
 
         $row11 = $row['id'];
         $sql1 = "SELECT * FROM assessments WHERE user_id = $row11";
@@ -38,12 +38,16 @@ if ($result->num_rows > 0) {
         $_SESSION['fitness_lvl'] = $row1['fitness_level'];
 
     } else {
-        echo "<h2>Invalid password. Please try again.</h2>";
-        echo '<button onclick="window.location.href=\'login1.html\';">Return to Login Page</button>';
+        echo "<div style=\"display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh;\">
+                <h2>Invalid password. Please try again.</h2>
+                <button style=\"margin-top: 10px;\" onclick=\"window.location.href='login1.html';\">Return to Login Page</button>
+              </div>";
     }
 } else {
-    echo "<h2>Invalid username. Please try again.</h2>";
-    echo '<button onclick="window.location.href=\'login.html\';">Return to Login Page</button>';
+    echo "<div style=\"display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh;\">
+            <h2>Invalid username. Please try again.</h2>
+            <button style=\"margin-top: 10px;\" onclick=\"window.location.href='login.html';\">Return to Login Page</button>
+          </div>";
 }
 
 $conn->close();

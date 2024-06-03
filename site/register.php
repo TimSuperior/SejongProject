@@ -20,27 +20,45 @@ $height = $_POST['height'];
 $goals = $_POST['goals'];
 $conditions = $_POST['conditions'];
 
-//$_SESSION['user_id'] = $row['id'];
 $_SESSION['username'] = $_POST['username'];
 $sql = "INSERT INTO users (username, password, age, gender, weight, height, goals, conditions)
 VALUES ('$user', '$pass', '$age', '$gender', '$weight', '$height', '$goals', '$conditions')";
 
+$registration_message = "";
 if ($conn->query($sql) === TRUE) {
-    echo "Registration successful!";
+    $registration_message = "Registration successful!";
 } else {
-    echo "Error: " . $sql . "<br>" . $conn->error;
+    $registration_message = "Error: " . $sql . "<br>" . $conn->error;
 }
 
 $conn->close();
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Registration Result - FitHub</title>
     <link rel="stylesheet" href="css/reg_styles.css">
+    <style>
+        .center-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+        }
+        .center-container button {
+            margin-top: 10px;
+            background-color: rgb(43, 224, 15);
+        }
+    </style>
 </head>
 <body>
-    <button onclick="window.location.href='assessment.html';">Go to assessment page</button>
+    <div class="center-container">
+        <h2><?php echo $registration_message; ?></h2>
+        <button onclick="window.location.href='assessment.html';">Go to assessment page</button>
+    </div>
 </body>
 </html>
