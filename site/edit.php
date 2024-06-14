@@ -84,7 +84,7 @@ $conn->close();
 <body>
     <div class="center-container">
         <h2>Edit Profile</h2>
-        <form action="edit_profile.php" method="post">
+        <form action="edit.php" method="post">
             <div class="form-container">
                 <div class="col">
                     <label for="age">Age:</label>
@@ -111,7 +111,7 @@ $conn->close();
             <button type="submit">Edit Complete</button>
         </form>
         <?php if (isset($update_message)) echo "<p>$update_message</p>"; ?>
-        <button onclick="window.location.href='dashboard.php';">Back to Dashboard</button>
+        <button onclick="window.location.href='index1.html';">Back Main Page</button>
     </div>
 </body>
 </html>
