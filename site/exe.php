@@ -1,6 +1,41 @@
-<?php 
+<?php
 session_start();
+$servername = "localhost";
+$username = "root";
+$password = "Tim8";
+$dbname = "fithub";
 
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Handle form submission
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $comment = htmlspecialchars(trim($_POST['comment']));
+    $username = $_SESSION['username']; // Assuming the user is logged in and username is stored in session
+
+    $sql = $conn->prepare("INSERT INTO comments (username, comment) VALUES (?, ?)");
+    $sql->bind_param("ss", $username, $comment);
+
+    $comment_message = "";
+    if ($sql->execute() === TRUE) {
+        $comment_message = "Comment submitted successfully!";
+    } else {
+        $comment_message = "Error: " . $sql->error;
+    }
+
+    $sql->close();
+}
+
+// Fetch comments from the database
+$sql = "SELECT username, comment, created_at FROM comments ORDER BY created_at DESC";
+$result = $conn->query($sql);
+
+$conn->close();
 ?>
 
 <!DOCTYPE html>
@@ -54,6 +89,7 @@ session_start();
                       <li class="active"><a href="http://localhost/Uni/WebProgProject/Sardorlol/site/exe.php"><span>Exercise</span></a></li>
                       <li><a href="exesample.html"><span>Myprogress</span></a></li>
                       <li><a href="nutri.html"><span>Nutrition</span></a></li>
+                      <li><a href="http://localhost/Uni/WebProgProject/Sardorlol/site/edit.php"><span>Edit Profile</span></a></li>
                       <li><a href="login.html"><span>LogOut</span></a></li>
                       
                     </ul>
@@ -174,6 +210,30 @@ else
                 <button type="submit">Submit</button>
             </div>
         </form>
+        <h2>Add comments</h2>
+        <div class="comment-form">
+            <form action="exe.php" method="post">
+                <label for="comment">Your Comment:</label>
+                <textarea id="comment" name="comment" rows="4" required></textarea><br>
+                <button type="submit">Submit Comment</button>
+            </form>
+            <?php if (isset($comment_message)) echo "<p>$comment_message</p>"; ?>
+        </div>
+        <div class="comments-section">
+            <h3>All Comments</h3>
+            <?php
+            if ($result->num_rows > 0) {
+                while($row = $result->fetch_assoc()) {
+                    echo '<div class="comment">';
+                    echo '<div class="comment-header">' . htmlspecialchars($row['username']) . ' - ' . $row['created_at'] . '</div>';
+                    echo '<div class="comment-body">' . htmlspecialchars($row['comment']) . '</div>';
+                    echo '</div>';
+                }
+            } else {
+                echo '<p>No comments yet.</p>';
+            }
+            ?>
+        </div>
     </div>
 
 
