@@ -38,6 +38,7 @@ while ($row = $result->fetch_assoc()) {
 // Return the data as JSON
 echo json_encode($data);
 
+
 // Close the statement and connection
 $stmt->close();
 $conn->close();
