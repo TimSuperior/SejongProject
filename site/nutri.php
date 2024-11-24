@@ -1,3 +1,12 @@
+<?php
+session_start();
+if (isset($_SESSION['user_id'])) {
+    $userId = $_SESSION['user_id']; // Get userId from session
+} else {
+    // Handle the case where the user is not logged in
+    $userId = 0; // Or redirect to login page
+}
+?>
 <!DOCTYPE html>
 <html class="wow-animation" lang="en">
   <head>
@@ -8,6 +17,7 @@
     <link rel="icon" href="images/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Ubuntu:400,400italic,500,700,700italic">
     <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>.ie-panel{display: none;background: #212121;padding: 10px 0;box-shadow: 3px 3px 5px 0 rgba(0,0,0,.3);clear: both;text-align:center;position: relative;z-index: 1;} html.ie-10 .ie-panel, html.lt-ie-10 .ie-panel {display: block;}</style>
   </head>
@@ -48,8 +58,8 @@
                       
                       <li><a href="index1.html"><span>Home</span></a></li>
                       <li><a href="http://localhost/Uni/WebProgProject/Sardorlol/site/exe.php"><span>Exercise</span></a></li>
-                      <li><a href="exesample.html"><span>Myprogress</span></a></li>
-                      <li class="active"><a href="nutri.html"><span>Nutrition</span></a></li>
+                      <li><a href="http://localhost/Uni/WebProgProject/Sardorlol/site/exesample.html"><span>Myprogress</span></a></li>
+                      <li class="active"><a href="http://localhost/Uni/WebProgProject/Sardorlol/site/nutri.php""><span>Nutrition</span></a></li>
                       <li><a href="http://localhost/Uni/WebProgProject/Sardorlol/site/edit.php"><span>Edit Profile</span></a></li>
                       <li><a href="http://localhost/Uni/WebProgProject/Sardorlol/site/logout.php"><span>LogOut</span></a></li>
                       
@@ -106,6 +116,208 @@
               <div class="offset-top-30">
                 <p class="text-left">A balanced diet is crucial for maintaining overall health and well-being. It provides the necessary nutrients, vitamins, and minerals that the body needs to function effectively. A diet rich in fruits, vegetables, whole grains, lean proteins, and healthy fats can help reduce the risk of chronic diseases such as heart disease, diabetes, and cancer. Additionally, proper nutrition supports brain function, boosts the immune system, and aids in maintaining a healthy weight. Consistently making healthy dietary choices can lead to improved energy levels, better mental clarity, and enhanced quality of life.</p>
               </div>
+
+              <!-- Chat Interface -->
+<!-- Calorie Tracker Section -->
+<div id="calorieStats" style="text-align: center; margin-bottom: 20px;">
+  <h3 style="font-size: 2em; margin: 0;">0</h3>
+  <p style="font-size: 1.2em; margin: 0;">Left: 2500</p>
+</div>
+
+<div class="chart-container" style="display: flex; justify-content: center; align-items: center; height: 300px; margin-bottom: 20px;">
+  <canvas id="calorieChart" width="200" height="200" style="max-width: 100%; max-height: 100%;"></canvas>
+</div>
+
+<!-- Chat Section -->
+<div id="chat" style="margin: 20px;">
+  <div id="messages" style="max-height: 300px; overflow-y: auto; margin-bottom: 10px; border: 1px solid #ccc; padding: 10px;"></div>
+  <div id="input-area" style="display: flex;">
+      <input type="text" id="input" placeholder="Type your food or drink..." style="flex: 1; padding: 10px; margin-right: 10px;">
+      <button id="send" style="padding: 10px 15px;">Send</button>
+  </div>
+</div>
+
+<script>
+  // Initialize calorie tracker
+  let calorieBudget = 2500; // Set the calorie budget
+  let totalCalories = 0; // This will hold the total calories consumed (including fetched data)
+  const userId = <?php echo $_SESSION['user_id'] ?? 0; ?>; // Dynamically set userId
+
+
+  const messagesDiv = document.getElementById('messages');
+  const inputField = document.getElementById('input');
+  const sendButton = document.getElementById('send');
+  const calorieStats = document.getElementById('calorieStats');
+  const calorieChartCanvas = document.getElementById('calorieChart');
+
+  // Function to fetch total calories for a user from the database
+  async function fetchTotalCalories() {
+    try {
+        const response = await fetch('http://localhost/Uni/WebProgProject/Sardorlol/site/get_calories.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: new URLSearchParams({ user_id: userId })  // Send user_id as form data
+        });
+        const data = await response.json();
+
+        // Set the totalCalories to the value fetched from the database
+        if (data.totalCalories !== undefined) {
+            totalCalories = data.totalCalories || 0;  // If no totalCalories in DB, default to 0
+            renderCalorieChart(); // Render the chart with the initial totalCalories
+        } else {
+            console.error("No data returned for totalCalories");
+        }
+    } catch (error) {
+        console.error("Failed to fetch calorie data:", error);
+    }
+}
+
+  // Fetch data on page load
+  document.addEventListener('DOMContentLoaded', fetchTotalCalories);
+
+  // Update total calories and store in the database
+  async function updateCalories(calories) {
+      console.log("Adding calories:", calories); // Log the incoming calories
+
+      totalCalories = parseFloat(totalCalories);
+      // Add the new calories to the existing totalCalories
+      totalCalories += Math.round(parseFloat(calories));
+      if (totalCalories < 0) totalCalories = 0;  // Prevent negative totalCalories
+
+      console.log("Updated totalCalories:", parseFloat(totalCalories), parseFloat(calories)); // Log the updated total calories
+
+      // Send the updated calorie data to the database
+      try {
+          await fetch('http://localhost/Uni/WebProgProject/Sardorlol/site/store_calories.php', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+              body: new URLSearchParams({ user_id: userId, calories: calories })
+          });
+          renderCalorieChart(); // Trigger chart update
+      } catch (error) {
+          console.error("Failed to update calorie data:", error);
+      }
+  }
+
+  // Render the calorie chart
+  function renderCalorieChart() {
+      const leftCalories = calorieBudget - totalCalories;
+
+      const ctx = calorieChartCanvas.getContext('2d');
+      const data = {
+          datasets: [{
+              data: [totalCalories, leftCalories], // Consumed vs Left
+              backgroundColor: ['#28a745', '#ccc'], // Green for consumed, gray for left
+              hoverOffset: 4,
+          }],
+          labels: ['Consumed', 'Left'],
+      };
+
+      // Destroy any existing chart instance before creating a new one
+      if (window.myChart) {
+          window.myChart.destroy();
+      }
+
+      window.myChart = new Chart(ctx, {
+          type: 'doughnut',
+          data: data,
+          options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              plugins: {
+                  tooltip: {
+                      callbacks: {
+                          label: (tooltipItem) => {
+                              const label = tooltipItem.label || '';
+                              const value = tooltipItem.raw || 0;
+                              return `${label}: ${value} calories`;
+                          },
+                      },
+                  },
+                  legend: {
+                      display: false, // Hide the legend
+                  },
+              },
+              cutout: '80%', // Inner radius for doughnut
+              animation: {
+                  animateScale: true,
+                  animateRotate: true,
+              },
+          },
+      });
+
+      // Update calorie stats above the chart
+      calorieStats.innerHTML = `
+          <h3 style="font-size: 2em; margin: 0;">${totalCalories}</h3>
+          <p style="font-size: 1.2em; margin: 0;">Left: ${leftCalories}</p>
+      `;
+  }
+
+  // Function to add messages to the chat
+  function addMessage(content, type) {
+      const messageDiv = document.createElement('div');
+      messageDiv.className = `message ${type}`;
+      messageDiv.textContent = content;
+
+      // Apply inline styles dynamically
+      if (type === 'user') {
+          messageDiv.style.color = 'blue';
+          messageDiv.style.textAlign = 'right';
+      } else if (type === 'bot') {
+          messageDiv.style.color = 'green';
+      }
+
+      messageDiv.style.marginBottom = '10px';
+
+      messagesDiv.appendChild(messageDiv);
+      messagesDiv.scrollTop = messagesDiv.scrollHeight;
+  }
+
+  // Handle the Send button click
+  sendButton.addEventListener('click', async () => {
+      const userInput = inputField.value.trim();
+      if (!userInput) {
+          addMessage('Please enter food or drink details.', 'bot');
+          return;
+      }
+
+      addMessage(userInput, 'user'); // Add user message
+      inputField.value = '';
+
+      try {
+          const response = await fetch('http://localhost/Uni/WebProgProject/Sardorlol/site/nutritionix.php', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+              body: new URLSearchParams({ query: userInput })
+          });
+          const data = await response.json();
+
+          if (data.foods) {
+              data.foods.forEach(food => {
+                  const calories = food.nf_calories;
+                  addMessage(`${food.food_name}: ${calories} calories`, 'bot');
+                  updateCalories(calories); // Update the calorie chart with the fetched calories
+              });
+          } else if (data.error) {
+              addMessage(data.error, 'bot');
+          } else {
+              addMessage('No data found for your query.', 'bot');
+          }
+      } catch (error) {
+          addMessage('An error occurred. Please try again later.', 'bot');
+      }
+  });
+
+  // Allow pressing Enter to send messages
+  inputField.addEventListener('keypress', (event) => {
+      if (event.key === 'Enter') {
+          sendButton.click();
+      }
+  });
+</script>
+
+
+
               <div class="offset-top-50">
                 <!-- Linear progress bar-->
                 <div class="progress-linear" data-to="77">

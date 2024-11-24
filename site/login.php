@@ -28,7 +28,7 @@ if ($result->num_rows > 0) {
         $_SESSION['username'] = $row['username'];
         echo "<div style=\"display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh;\">
                 <h2>Login successful! Welcome, " . $row['username'] . ".</h2>
-                <button style=\"background-color: rgb(43, 224, 15); margin-top: 10px;\" onclick=\"window.location.href='index1.html';\">Return to Main Page</button>
+                <button style=\"background-color: rgb(43, 224, 15); margin-top: 10px;\" onclick=\"window.location.href='http://localhost/Uni/WebProgProject/Sardorlol/site/index1.html';\">Return to Main Page</button>
               </div>";
 
         $row11 = $row['id'];
@@ -40,13 +40,13 @@ if ($result->num_rows > 0) {
     } else {
         echo "<div style=\"display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh;\">
                 <h2>Invalid password. Please try again.</h2>
-                <button style=\"margin-top: 10px;\" onclick=\"window.location.href='login1.html';\">Return to Login Page</button>
+                <button style=\"margin-top: 10px;\" onclick=\"window.location.href='http://localhost/Uni/WebProgProject/Sardorlol/site/login.html';\">Return to Login Page</button>
               </div>";
     }
 } else {
     echo "<div style=\"display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh;\">
             <h2>Invalid username. Please try again.</h2>
-            <button style=\"margin-top: 10px;\" onclick=\"window.location.href='login.html';\">Return to Login Page</button>
+            <button style=\"margin-top: 10px;\" onclick=\"window.location.href='http://localhost/Uni/WebProgProject/Sardorlol/site/login.html';\">Return to Login Page</button>
           </div>";
 }
 

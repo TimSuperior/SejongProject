@@ -87,10 +87,10 @@ $conn->close();
                       
                       <li><a href="index1.html"><span>Home</span></a></li>
                       <li class="active"><a href="http://localhost/Uni/WebProgProject/Sardorlol/site/exe.php"><span>Exercise</span></a></li>
-                      <li><a href="exesample.html"><span>Myprogress</span></a></li>
-                      <li><a href="nutri.html"><span>Nutrition</span></a></li>
+                      <li><a href="http://localhost/Uni/WebProgProject/Sardorlol/site/exesample.html"><span>Myprogress</span></a></li>
+                      <li><a href="http://localhost/Uni/WebProgProject/Sardorlol/site/nutri.php"><span>Nutrition</span></a></li>
                       <li><a href="http://localhost/Uni/WebProgProject/Sardorlol/site/edit.php"><span>Edit Profile</span></a></li>
-                      <li><a href="login.html"><span>LogOut</span></a></li>
+                      <li><a href="http://localhost/Uni/WebProgProject/Sardorlol/site/login.html"><span>LogOut</span></a></li>
                       
                     </ul>
                   </div>
