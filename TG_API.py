@@ -71,7 +71,6 @@ async def handle_password(update: Update, context: CallbackContext) -> int:
         conn.close()
         return ConversationHandler.END
 
-# Handle progress information
 async def show_progress(update: Update, context: CallbackContext):
     user_id = context.user_data.get('user_id')
     if not user_id:
@@ -84,19 +83,22 @@ async def show_progress(update: Update, context: CallbackContext):
         return
 
     cursor = conn.cursor(dictionary=True)
-    cursor.execute("SELECT * FROM progress WHERE user_id = %s LIMIT 5", (user_id,))
+    cursor.execute("SELECT weight FROM progress WHERE user_id = %s LIMIT 5", (user_id,))
     rows = cursor.fetchall()
     conn.close()
 
     if rows:
-        progress_report = "Your Recent Progress:\n"
-        for row in rows:
-            progress_report += f"- Weight: {row['weight']} kg\n"  # Removed body fat info
-        await update.message.reply_text(progress_report)  # Use 'await'
+        progress_report = "*📈 Your Recent Progress:*\n\n"
+        for index, row in enumerate(rows, start=1):
+            progress_report += f"➤ *Session {index}:* _{row['weight']:.2f} kg_\n"
+        progress_report += "\nKeep up the good work! 💪"
+
+        await update.message.reply_text(progress_report, parse_mode="Markdown")
     else:
         await update.message.reply_text("No progress records found.")
 
-# Handle nutrition guidance information
+
+
 async def show_nutrition(update: Update, context: CallbackContext):
     user_id = context.user_data.get('user_id')
     if not user_id:
@@ -109,17 +111,31 @@ async def show_nutrition(update: Update, context: CallbackContext):
         return
 
     cursor = conn.cursor(dictionary=True)
-    cursor.execute("SELECT * FROM nutrition_guidance WHERE user_id = %s", (user_id,))
+    cursor.execute("SELECT meal, calories, protein, carbs, fat FROM nutrition_guidance WHERE user_id = %s", (user_id,))
     rows = cursor.fetchall()
     conn.close()
 
     if rows:
-        nutrition_report = "Your Nutrition Guidance:\n"
-        for row in rows:
-            nutrition_report += f"- Meal: {row['meal']}, Calories: {row['calories']} kcal, Protein: {row['protein']} g, Carbs: {row['carbs']} g, Fat: {row['fat']} g\n"
-        await update.message.reply_text(nutrition_report)
+        nutrition_report = "*🍽️ Your Nutrition Guidance:*\n\n"
+        total_calories = 0
+        for index, row in enumerate(rows, start=1):
+            nutrition_report += (
+                f"*{index}. {row['meal']}*\n"
+                f"  - *Calories:* {row['calories']} kcal\n"
+                f"  - *Protein:* {row['protein']} g\n"
+                f"  - *Carbs:* {row['carbs']} g\n"
+                f"  - *Fat:* {row['fat']} g\n\n"
+            )
+            total_calories += row['calories']
+
+        nutrition_report += f"*🔥 Total Calories Consumed:* {total_calories} kcal\n"
+        nutrition_report += "\nStay on track with your goals! 🌟"
+
+        await update.message.reply_text(nutrition_report, parse_mode="Markdown")
     else:
         await update.message.reply_text("No nutrition guidance records found.")
+
+
 
 # Generate and send weight graph
 async def send_weight_graph(update: Update, context: CallbackContext):
