@@ -1,5 +1,5 @@
 Sejong Unviversity
-Web Programming course
+SOFTWARE ENGINEERING course
 Project : FitHub
-Professor: Gyanendra Prasad JOSHI
+Professor: Rajendra Dhakal
 Timur Asraev (19012851)
